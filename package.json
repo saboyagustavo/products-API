@@ -4,6 +4,8 @@
   "description": "An Express CRUD application and documentation using Swagger",
   "main": "index.js",
   "scripts": {
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "typeorm": "ts-node-dev node_modules/typeorm/cli.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev src/server.ts"
   },
@@ -19,6 +21,10 @@
   "homepage": "https://github.com/saboyagustavo/products-API#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.2",
+    "typeorm": "^0.2.37",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

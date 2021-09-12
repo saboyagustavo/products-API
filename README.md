@@ -22,6 +22,8 @@ This is an app built as part of a learning experience promoted by [Rocketseat](h
 - [Express](https://www.npmjs.com/package/express)
 - [Uuid](https://www.npmjs.com/package/uuid)
 - [Swagger](https://swagger.io/)
+- [TypeORM](https://typeorm.io/#/)
+- [SQLite3](https://www.sqlite.org/index.html)
 
 ### 💻 Installation
 
