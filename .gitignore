@@ -151,7 +151,7 @@ dist
 
 # SQLite3
 
-.sqlite/
+\*.sqlite
 
 # general
 

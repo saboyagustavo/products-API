@@ -59,7 +59,7 @@ router.post('/products', ensuredAuthenticated, (request, response) => {
     products.push(product);
 
     return response.status(201).json(product);
-  } catch (error) {
+  } catch (error: any) {
     return response.status(500).send({ message: error.message });
   }
 });
