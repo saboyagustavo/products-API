@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { v4 as uuid } from 'uuid';
 import { ensuredAuthenticated } from './middleware';
 
-export const router = Router();
+const router = Router();
 
 interface ProductsDTO {
   id: string;
@@ -63,3 +63,26 @@ router.post('/products', ensuredAuthenticated, (request, response) => {
     return response.status(500).send({ message: error.message });
   }
 });
+
+router.put('/products/:id', (request, response) => {
+  const { id } = request.params;
+  const { name, description, price } = request.body;
+
+  const productIndex = products.findIndex((item) => item.id === id);
+
+  if (productIndex === -1) {
+    return response.status(404);
+  }
+
+  const product: ProductsDTO = Object.assign({
+    name,
+    description,
+    price,
+  });
+
+  products[productIndex] = product;
+
+  return response.json(product);
+});
+
+export { router };
