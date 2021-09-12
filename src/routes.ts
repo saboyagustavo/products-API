@@ -18,7 +18,7 @@ router.get('/products/:id', (request, response) => {
   const product = products.find((item) => item.id === id);
 
   if (!product) {
-    return response.status(404).send({ error: 'Product was not found!' });
+    return response.status(404).send({ message: 'Product was not found!' });
   }
 
   return response.json(product);
@@ -29,29 +29,37 @@ router.get('/products/findByName', (request, response) => {
   const product = products.filter((item) => item.name.includes(String(name)));
 
   if (!product) {
-    return response.status(404).send({ error: 'Product was not found!' });
+    return response.status(404).send({ message: 'Product was not found!' });
   }
 
   return response.json(product);
 });
 
 router.post('/products', ensuredAuthenticated, (request, response) => {
-  const { name, description, price } = request.body;
+  try {
+    const { name, description, price } = request.body;
 
-  const productAlreadyExists = products.find((product) => product.name === name);
+    if (!name || !description || !price) {
+      return response.status(422).json({ message: 'Missing required information about the product!' });
+    }
 
-  if (productAlreadyExists) {
-    return response.status(400).json({ mesage: 'Product already exists!' });
+    const productAlreadyExists = products.find((product) => product.name === name);
+
+    if (productAlreadyExists) {
+      return response.status(400).json({ message: 'Product already exists!' });
+    }
+
+    const product: ProductsDTO = {
+      id: uuid(),
+      name,
+      description,
+      price,
+    };
+
+    products.push(product);
+
+    return response.status(201).json(product);
+  } catch (error) {
+    return response.status(500).send({ message: error.message });
   }
-
-  const product: ProductsDTO = {
-    id: uuid(),
-    name,
-    description,
-    price,
-  };
-
-  products.push(product);
-
-  return response.status(201).json(product);
 });
