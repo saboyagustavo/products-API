@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 @Entity('products')
 class Product {
   @PrimaryColumn()
-  id: string;
+  readonly id: string;
 
   @Column()
   name: string;
@@ -17,6 +17,12 @@ class Product {
 
   @Column()
   created_at: Date;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuid();
+    }
+  }
 }
 
 export { Product };
