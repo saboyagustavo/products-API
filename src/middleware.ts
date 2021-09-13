@@ -7,7 +7,7 @@ export async function ensuredAuthenticated(request: Request, response: Response,
     return response.status(401).send();
   }
 
-  const [, user] = token.split('');
+  const [, user] = token.split(' ');
   if (user === 'admin') {
     return next();
   }
