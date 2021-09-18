@@ -1,13 +1,12 @@
 import { Router } from 'express';
 import { ensuredAuthenticated } from './middleware';
-import { ProductController } from './controllers/ProductController';
+import ProductController from './controllers/ProductController';
 
 const router = Router();
 
-const productController = new ProductController();
-router.get('/products/find/:id', productController.getProductById);
-router.get('/products/findByName/?', productController.getProductByName);
-router.post('/products', ensuredAuthenticated, productController.createProduct);
-router.put('/products/:id', ensuredAuthenticated, productController.updateProduct);
+router.get('/products/find/:id', ProductController.getProductById);
+router.get('/products/findByName/?', ProductController.getProductByName);
+router.post('/products', ensuredAuthenticated, ProductController.createProduct);
+router.put('/products/:id', ensuredAuthenticated, ProductController.updateProduct);
 
 export { router };

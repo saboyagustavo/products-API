@@ -1,4 +1,12 @@
-import { app } from './app';
+import { App } from './app';
+import { createConnection } from 'typeorm';
+import 'reflect-metadata';
+import * as dotenv from 'dotenv';
 
-const PORT = process.env.PORT || 4444;
-app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
+dotenv.config();
+createConnection()
+  .then(() => {
+    const application: App = new App();
+    application.startServer();
+  })
+  .catch((error) => console.log('Unexpected error:', error));
